@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
   def new
-    redirect_to root_path if current_identity
+    return redirect_to root_path if current_identity
+
+    redirect_to "/auth/hackclub"
   end
 
   def create

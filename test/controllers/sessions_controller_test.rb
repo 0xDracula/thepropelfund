@@ -48,6 +48,12 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
+  test "visiting login while signed out redirects straight to Hack Club Auth" do
+    get login_path
+
+    assert_redirected_to "/auth/hackclub"
+  end
+
   private
 
   def mock_hca_auth(slack_id:, name:, email:)

@@ -21,7 +21,6 @@ gem "jbuilder"
 
 gem "omniauth", "~> 2.1"
 gem "omniauth_openid_connect", "~> 0.8"
-gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "faraday", "~> 2.14"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]

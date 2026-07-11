@@ -1,5 +1,8 @@
 class SubmissionsController < ApplicationController
   before_action :require_identity
+  before_action :require_ysws_eligible, only: :create
+
+  helper_method :ysws_eligible?
 
   def new
     @submission = SubmissionForm.new(identity_attributes)
@@ -19,6 +22,16 @@ class SubmissionsController < ApplicationController
   end
 
   private
+
+  def ysws_eligible?
+    current_identity.ysws_eligible
+  end
+
+  def require_ysws_eligible
+    return if ysws_eligible?
+
+    redirect_to submit_path, alert: "You need to verify your identity at auth.hackclub.com before you can apply."
+  end
 
   def identity_attributes
     {

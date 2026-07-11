@@ -1,0 +1,8 @@
+<% if current_identity %>
+  <div>
+    <p>Signed in as <%= current_identity.name %> (<%= current_identity.email %>)</p>
+    <%= button_to "Log out", logout_path, method: :delete, data: { turbo: false } %>
+  </div>
+<% else %>
+  <%= button_to "Sign in with Hack Club", "/auth/hackclub", data: { turbo: false } %>
+<% end %>

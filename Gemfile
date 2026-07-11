@@ -19,12 +19,9 @@ gem "jbuilder"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
-# Hack Club Auth login (OIDC)
 gem "omniauth", "~> 2.1"
 gem "omniauth_openid_connect", "~> 0.8"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
-
-# HTTP client for the Airtable API [https://github.com/lostisland/faraday]
 gem "faraday", "~> 2.14"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
@@ -43,7 +40,6 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 group :development, :test do
-  # Load .env for local dev/test
   gem "dotenv-rails"
 
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -69,6 +65,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 
-  # Stub HTTP requests to the Airtable API in tests
   gem "webmock"
 end

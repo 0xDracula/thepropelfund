@@ -14,6 +14,5 @@ Rails.application.routes.draw do
   get "auth/failure", to: "sessions#failure", as: :auth_failure
   delete "logout", to: "sessions#destroy", as: :logout
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  root "home#index"
 end

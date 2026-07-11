@@ -15,7 +15,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     get "/auth/callback"
 
-    assert_redirected_to login_path
+    assert_redirected_to root_path
     assert_equal "U123", session[:identity][:slack_id]
     assert_equal "Test Teen", session[:identity][:name]
     assert_equal "teen@example.com", session[:identity][:email]
@@ -28,7 +28,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     delete "/logout"
 
-    assert_redirected_to login_path
+    assert_redirected_to root_path
     assert_nil session[:identity]
   end
 
@@ -37,6 +37,15 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_match "invalid_credentials", response.body
+  end
+
+  test "visiting login while already signed in redirects home" do
+    mock_hca_auth(slack_id: "U123", name: "Test Teen", email: "teen@example.com")
+    get "/auth/callback"
+
+    get login_path
+
+    assert_redirected_to root_path
   end
 
   private

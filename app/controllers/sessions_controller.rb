@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    redirect_to root_path if current_identity
   end
 
   def create
@@ -15,7 +16,7 @@ class SessionsController < ApplicationController
       ysws_eligible: raw_info["ysws_eligible"]
     }
 
-    redirect_to login_path, notice: "Signed in as #{session[:identity][:name]}"
+    redirect_to root_path, notice: "Signed in as #{session[:identity][:name]}"
   end
 
   def failure
@@ -24,6 +25,6 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to login_path
+    redirect_to root_path
   end
 end

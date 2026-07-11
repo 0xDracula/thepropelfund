@@ -1,0 +1,83 @@
+<a href="https://hackclub.com" target="_blank" rel="noopener" class="corner-flag" aria-label="Hack Club">
+  <img src="https://assets.hackclub.com/flag-orpheus-top.svg" alt="Hack Club flag">
+</a>
+
+<main class="page">
+  <div class="card">
+    <div class="header">
+      <div class="logo" aria-label="TheHackGrant logo">
+        <img class="layer blob" src="/propel1.png" alt="">
+        <img class="layer glow" src="/propel4.png" alt="">
+        <img class="layer dino" src="/propel2.png" alt="">
+        <img class="layer rocket" src="/propel3.png" alt="">
+      </div>
+      <p class="brand">TheHackGrant</p>
+    </div>
+
+    <h1>
+      <span class="amount">$50&ndash;$200</span> to build something cool.
+    </h1>
+
+    <p class="sub">
+      A microgrant from Hack Club for anyone under 18. Hardware or software.
+      Log your hours, ship your project, and join thousands of others in the
+      Hack Club database.
+    </p>
+
+    <div class="actions">
+      <%= link_to "Apply now", "/submit", class: "apply" %>
+      <a href="https://hackclub.com" target="_blank" rel="noopener" class="link">What&rsquo;s Hack Club? &rarr;</a>
+    </div>
+
+    <div class="faq" data-controller="faq">
+      <button class="q" data-faq-target="button" data-action="click->faq#toggle">Who can apply?</button>
+      <p class="a" data-faq-target="answer" hidden>Anyone under 18. That&rsquo;s the only requirement.</p>
+
+      <button class="q" data-faq-target="button" data-action="click->faq#toggle">What can I build?</button>
+      <p class="a" data-faq-target="answer" hidden>
+        Hardware or software. A keyboard, a website, a game, a robot, a
+        browser extension, a 3D-printed thing. If you&rsquo;re not sure, apply
+        anyway.
+      </p>
+
+      <button class="q" data-faq-target="button" data-action="click->faq#toggle">How does the money work?</button>
+      <p class="a" data-faq-target="answer" hidden>
+        Between $50 and $200, sent to you through Hack Club&rsquo;s grant
+        infrastructure. Your spending gets auto-logged so you don&rsquo;t have
+        to keep receipts. Buy parts, pay for hosting, register a domain,
+        and it shows up on your project page.
+      </p>
+
+      <button class="q" data-faq-target="button" data-action="click->faq#toggle">What&rsquo;s the catch?</button>
+      <p class="a" data-faq-target="answer" hidden>
+        You log hours as you work on the project. It&rsquo;s how we know you&rsquo;re
+        actually building something, and it lets you see your own progress
+        over time. No long timesheets. Just a quick check-in when you sit
+        down to work.
+      </p>
+
+      <button class="q" data-faq-target="button" data-action="click->faq#toggle">What&rsquo;s the Hack Club database?</button>
+      <p class="a" data-faq-target="answer" hidden>
+        Hack Club runs a unified database of thousands of teen projects
+        from Summer of Making, Highway, Athena, and dozens of other
+        programs. Your grant project lives there too, alongside everyone
+        else&rsquo;s. You can browse what other teens are building and they can
+        find yours.
+      </p>
+
+      <button class="q" data-faq-target="button" data-action="click->faq#toggle">What happens at the end?</button>
+      <p class="a" data-faq-target="answer" hidden>
+        You ship it. Wrap up the build, post the project page, share a
+        demo or repo link. Shipping is the requirement. Even if it&rsquo;s
+        small, broken, or weird, it has to actually exist.
+      </p>
+
+      <button class="q" data-faq-target="button" data-action="click->faq#toggle">When do I hear back?</button>
+      <p class="a" data-faq-target="answer" hidden>Applications are rolling. We try to reply within two weeks.</p>
+    </div>
+
+    <p class="footer">
+      An initiative by <a href="https://hackclub.com" target="_blank" rel="noopener">Hack Club</a>.
+    </p>
+  </div>
+</main>

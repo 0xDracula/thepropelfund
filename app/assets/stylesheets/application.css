@@ -1,10 +1,259 @@
-/*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
- */
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+
+@font-face {
+  font-family: 'Phantom Sans';
+  src:
+    url('/fonts/PhantomSans.woff2') format('woff2'),
+    url('/fonts/PhantomSans.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+:root {
+  --hc-red: #ec3750;
+  --hc-orange: #ff8c37;
+  --hc-yellow: #f1c40f;
+  --hc-green: #33d6a6;
+  --hc-cyan: #5bc0de;
+  --hc-blue: #338eda;
+  --hc-purple: #a633d6;
+  --hc-muted: #8492a6;
+
+  --color-bg: #ffffff;
+  --color-text: #17171d;
+  --color-text-dim: #5a626f;
+  --color-text-faint: #8492a6;
+  --color-rule: #17171d;
+  --color-accent: var(--hc-red);
+
+  --font-display: 'Phantom Sans', 'Inter', system-ui, sans-serif;
+  --font-serif: 'Phantom Sans', 'Inter', system-ui, sans-serif;
+  --font-body: 'Phantom Sans', 'Inter', system-ui, sans-serif;
+  --font-mono: 'Anonymous Pro', ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  margin: 0;
+}
+
+.corner-flag {
+  position: fixed;
+  top: 0;
+  left: 32px;
+  z-index: 50;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.corner-flag img {
+  display: block;
+  width: 130px;
+  height: auto;
+}
+
+.corner-flag:hover {
+  transform: translateY(4px);
+}
+
+@media (max-width: 600px) {
+  .corner-flag {
+    left: 16px;
+  }
+  .corner-flag img {
+    width: 90px;
+  }
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+}
+
+.logo .layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.logo:hover .rocket {
+  animation: rocket-launch 0.9s ease-in forwards;
+}
+
+@keyframes rocket-launch {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(40%, -80%) rotate(20deg); opacity: 0; }
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.card h1 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6.5vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0;
+  font-weight: 800;
+}
+
+.amount {
+  color: var(--hc-red);
+}
+
+.sub {
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.5;
+  color: var(--color-text-dim);
+  margin: 0;
+  max-width: 48ch;
+}
+
+.actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.apply {
+  display: inline-block;
+  background: var(--hc-red);
+  color: #fff;
+  text-decoration: none;
+  padding: 14px 32px;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  border-radius: 8px;
+  transition:
+    transform 0.12s ease,
+    background 0.15s ease;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.apply:hover {
+  background: #d92d44;
+  transform: translateY(-1px);
+}
+
+.link {
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  border-bottom: 2px solid var(--hc-red);
+  padding-bottom: 2px;
+}
+
+.link:hover {
+  color: var(--hc-red);
+}
+
+.faq {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--color-text);
+}
+
+.q {
+  all: unset;
+  cursor: pointer;
+  padding: 16px 0;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.q::after {
+  content: '+';
+  font-family: var(--font-mono);
+  color: var(--hc-red);
+  font-size: 22px;
+  margin-left: 12px;
+  transition: transform 0.15s ease;
+}
+
+.q.open::after {
+  content: '\2212';
+}
+
+.q:hover {
+  color: var(--hc-red);
+}
+
+.a {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--color-text-dim);
+  padding: 14px 0 18px;
+  margin: 0;
+  border-bottom: 1px solid var(--color-text);
+}
+
+.footer {
+  font-size: 14px;
+  color: var(--color-text-faint);
+  margin: 0;
+  margin-top: 8px;
+}
+
+.footer a {
+  color: var(--color-text-faint);
+  text-decoration: underline;
+}
+
+.footer a:hover {
+  color: var(--hc-red);
+}

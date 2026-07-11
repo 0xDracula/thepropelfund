@@ -12,7 +12,14 @@ class SubmissionsController < ApplicationController
     @submission = SubmissionForm.new(submission_params.to_h.merge(identity_attributes))
 
     if @submission.valid?
-      redirect_to submit_thanks_path
+      begin
+        Airtable::SubmissionSync.new(@submission, photos: photo_uploads).call
+        redirect_to submit_thanks_path
+      rescue Airtable::SubmissionSync::Error => e
+        Rails.logger.error("Airtable sync failed: #{e.message}")
+        @submission.errors.add(:base, "Something went wrong submitting your application. Please try again.")
+        render :new, status: :unprocessable_entity
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -22,6 +29,10 @@ class SubmissionsController < ApplicationController
   end
 
   private
+
+  def photo_uploads
+    Array(params.dig(:submission, :photos)).select { |file| file.respond_to?(:read) }
+  end
 
   def ysws_eligible?
     current_identity.ysws_eligible

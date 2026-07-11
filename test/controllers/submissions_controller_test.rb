@@ -3,11 +3,17 @@ require "test_helper"
 class SubmissionsControllerTest < ActionDispatch::IntegrationTest
   setup do
     OmniAuth.config.test_mode = true
+    ENV["AIRTABLE_API_KEY"] = "test-key"
+    ENV["AIRTABLE_BASE_ID"] = "appTEST123"
+    ENV["AIRTABLE_TABLE_NAME"] = "Applications"
   end
 
   teardown do
     OmniAuth.config.test_mode = false
     OmniAuth.config.mock_auth[:hackclub] = nil
+    ENV.delete("AIRTABLE_API_KEY")
+    ENV.delete("AIRTABLE_BASE_ID")
+    ENV.delete("AIRTABLE_TABLE_NAME")
   end
 
   test "requires sign-in to view the form" do
@@ -42,10 +48,36 @@ class SubmissionsControllerTest < ActionDispatch::IntegrationTest
 
   test "valid submission redirects to the thanks page" do
     sign_in(email: "teen@example.com")
+    stub_request(:post, "https://api.airtable.com/v0/appTEST123/Applications")
+      .to_return(status: 200, body: { id: "recABC123" }.to_json)
 
     post submit_path, params: { submission: valid_params }
 
     assert_redirected_to submit_thanks_path
+  end
+
+  test "uploads a real attached photo through the actual multipart flow" do
+    sign_in(email: "teen@example.com")
+    stub_request(:post, "https://api.airtable.com/v0/appTEST123/Applications")
+      .to_return(status: 200, body: { id: "recABC123" }.to_json)
+    upload_stub = stub_request(:post, "https://content.airtable.com/v0/appTEST123/recABC123/Photos/uploadAttachment")
+      .to_return(status: 200, body: "{}")
+
+    post submit_path, params: { submission: valid_params.merge(photos: [ fixture_file_upload("photo.png", "image/png") ]) }
+
+    assert_redirected_to submit_thanks_path
+    assert_requested upload_stub
+  end
+
+  test "re-renders with an error when Airtable sync fails" do
+    sign_in(email: "teen@example.com")
+    stub_request(:post, "https://api.airtable.com/v0/appTEST123/Applications")
+      .to_return(status: 500, body: "boom")
+
+    post submit_path, params: { submission: valid_params }
+
+    assert_response :unprocessable_entity
+    assert_select ".form-errors"
   end
 
   test "unverified applicant sees a disabled form with a note to verify" do

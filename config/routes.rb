@@ -14,5 +14,9 @@ Rails.application.routes.draw do
   get "auth/failure", to: "sessions#failure", as: :auth_failure
   delete "logout", to: "sessions#destroy", as: :logout
 
+  get "submit", to: "submissions#new", as: :submit
+  post "submit", to: "submissions#create"
+  get "submit/thanks", to: "submissions#thanks", as: :submit_thanks
+
   root "home#index"
 end

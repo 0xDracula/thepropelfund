@@ -1,0 +1,135 @@
+<main class="page">
+  <div class="card submission-card">
+    <div class="header">
+      <p class="brand">TheHackGrant &mdash; Apply</p>
+    </div>
+
+    <% if @submission.errors.any? %>
+      <div class="form-errors">
+        <p><%= pluralize(@submission.errors.count, "error") %> prevented this submission:</p>
+        <ul>
+          <% @submission.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_with model: @submission, url: submit_path, scope: :submission, local: true, html: { multipart: true } do |form| %>
+      <fieldset>
+        <legend>Who are you?</legend>
+
+        <div class="field">
+          <label>Email</label>
+          <p><%= current_identity.email %></p>
+        </div>
+
+        <div class="field">
+          <%= form.label :preferred_name, "Preferred Name" %>
+          <%= form.text_field :preferred_name %>
+        </div>
+
+        <div class="field">
+          <%= form.label :legal_first_name, "Legal First Name *" %>
+          <%= form.text_field :legal_first_name, required: true %>
+        </div>
+
+        <div class="field">
+          <%= form.label :legal_last_name, "Legal Last Name *" %>
+          <%= form.text_field :legal_last_name, required: true %>
+        </div>
+
+        <div class="field">
+          <%= form.label :age, "Age" %>
+          <%= form.number_field :age %>
+        </div>
+
+        <div class="field">
+          <%= form.label :school, "School/University" %>
+          <%= form.text_field :school %>
+        </div>
+
+        <div class="field">
+          <%= form.label :coding_club, "Are you part of any coding club?" %>
+          <%= form.text_field :coding_club %>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Project Information</legend>
+
+        <div class="field">
+          <%= form.label :grant_purpose, "What do you need a Propel Grant for?" %>
+          <%= form.text_field :grant_purpose %>
+        </div>
+
+        <div class="field">
+          <%= form.label :phone, "Phone number" %>
+          <%= form.telephone_field :phone %>
+        </div>
+
+        <div class="field">
+          <%= form.label :project_description, "Describe your project and what you have already done for it." %>
+          <%= form.text_area :project_description, rows: 5 %>
+        </div>
+
+        <div class="field">
+          <%= form.label :impact, "What impact will this project have for you or people around you or anyone else?" %>
+          <%= form.text_area :impact, rows: 4 %>
+        </div>
+
+        <div class="field">
+          <%= form.label :estimated_time, "How long will this project take you to complete? (estimate)" %>
+          <%= form.text_field :estimated_time %>
+        </div>
+
+        <div class="field">
+          <label for="submission_photos">Show us some photos of your project and progress of it!</label>
+          <input type="file" name="submission[photos][]" id="submission_photos" multiple accept="image/*">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Budget</legend>
+
+        <div class="field">
+          <%= form.label :money_use, "What will you use the money for?" %>
+          <%= form.text_area :money_use, rows: 3 %>
+        </div>
+
+        <div class="field">
+          <%= form.label :amount_requested, "How much are you requesting?" %>
+          <%= form.number_field :amount_requested, step: 1, min: 0 %>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Miscellaneous</legend>
+
+        <div class="field">
+          <%= form.label :uniqueness_explanation, "Why we should give you this grant? Is this project unique?" %>
+          <%= form.text_area :uniqueness_explanation, rows: 4 %>
+        </div>
+
+        <div class="field">
+          <%= form.label :inspiration, "What inspired this project? (Shortly!)" %>
+          <%= form.text_area :inspiration, rows: 3 %>
+        </div>
+
+        <div class="field">
+          <%= form.label :additional_notes, "Anything else you want us to know?" %>
+          <%= form.text_area :additional_notes, rows: 3 %>
+        </div>
+      </fieldset>
+
+      <div class="field checkbox-field">
+        <label>
+          <%= form.check_box :policy_confirmed %>
+          I confirm this project does not involve weapons, drugs, hate, harassment, or anything illegal.
+        </label>
+      </div>
+
+      <%= form.submit "Submit application", class: "apply" %>
+    <% end %>
+  </div>
+</main>
